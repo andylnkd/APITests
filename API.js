@@ -1,0 +1,26 @@
+import fetch from 'node-fetch'
+
+//Ref: added from here to resolve issue with module error https://flaviocopes.com/fix-cannot-use-import-outside-module/
+// Ref: used https://curlconverter.com/node-fetch/ to scrape https://www.vrbo.com/search/keywords:london-england-united-kingdom/arrival:2022-11-14/departure:2022-11-23/minNightlyPrice/0?petIncluded=false&filterByTotalPrice=true&ssr=true
+
+const output = async () => {const test = await fetch('https://www.vrbo.com/geo/v2/typeahead/suggest?site=vrbo&size=8&input=London%2C%20England%2C%20United%20Kingdom&locale=en_US&_=4034820619&_restfully=true&callback=jsonp_1665291210447_91192', {
+    headers: {
+        'authority': 'www.vrbo.com',
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9',
+        'cookie': 'hal=ga=1&ua=1&si=1&ui=1&vi=1&pr=0; ac4326f3-d51c-0e62-83d3-e4c59b26eef8SL=1; HMS=9d924001-da82-4868-9284-92c86f6e84cf; MC1=GUID=89d9ffdf9ff533a5a07b609b6a16dd80; DUAID=89d9ffdf-9ff5-33a5-a07b-609b6a16dd80; ha-device-id=89d9ffdf-9ff5-33a5-a07b-609b6a16dd80; hav=89d9ffdf-9ff5-33a5-a07b-609b6a16dd80; has=ac4326f3-d51c-0e62-83d3-e4c59b26eef8; eu-site=0; DUAID=89d9ffdf-9ff5-33a5-a07b-609b6a16dd80; _ga=GA1.2.900478328.1665290613; _gid=GA1.2.890065361.1665290613; _gac_UA-188611-1=1.1665290613.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; ac4326f3-d51c-0e62-83d3-e4c59b26eef8UAL=1; ensighten:source={"source":null,"medium":null,"lastAffiliate":null,"sessionid":"ac4326f3-d51c-0e62-83d3-e4c59b26eef8"}; ta_timeout=1; _gcl_aw=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; _gcl_dc=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; _gcl_au=1.1.1261550732.1665290614; _fbp=fb.1.1665290613998.247275631; _ha2_aw=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; _ha2_dc=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; _ha_aw=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; _ha_dc=GCL.1665290614.CjwKCAjwv4SaBhBPEiwA9YzZvG5eGw3OjZ49n5-aaCabYqm9OJxNB5hIFn4jMLgl8mJU27tolpOPaxoClxoQAvD_BwE; site=vrbo; _clck=toa4w0|1|f5k|0; ha-app-banner=0; xdid=e139995f-0180-4b2e-9632-5350431127c8|1665290616|vrbo.com; eg_ppid=9458c954-03ad-4f3d-ba38-70fe71ef8dfe; _dd_s=rum=0&expire=1665291525361; __utmuaepi=home%20page:home; crumb=VyBX07zKySSpkq2TpFCO3KFOdH9e4aBTb-jVlTbxO5f; edge-polyfill-location=city%3DSANTACLARA%2C%20region%3DCA%2C%20country%3DUS%2C%20lat%3D37.3519%2C%20lng%3D-121.952%2C%20asn%3D7922%2C%20city%3DSANTACLARA%2C%20region%3DCA%2C%20country%3DUS%2C%20lat%3D37.3519%2C%20lng%3D-121.952%2C%20asn%3D7922; edge-polyfill-device-classification=10; ak_bmsc=AE4E7EB40414F49C7D752435F485BB5E~000000000000000000000000000000~YAAQ9jLFF83nJauDAQAA40oVuxEKo7OKqMNtJX33c2Cm5v8CQcZfzWUrKXI0PSeT5kDP6YeG5dcT+JBIjddDLxHv+Ao1eNSA1kTtjS9LN5i7xJdfvg7l6AsnaoVSYwPbAMNA1IPZowGGF5dVf9sT9IOMJhsBDhQz+IW8Zn5Bph0dmRNnZdI8qc9ecxOoImNFqUbRvnekYmI75A5nuXMGD4/1sSGnpH6Pnv+00xxlLrzRFO+cDvennWOfEYQZY26NhGaJcja4QT/tPfiw2K81GXmt44UvfQDqzsx9/CE1FjplRqt9MaFgewvOSFmJmnZB/rBWowQjowt8Yc3l8m1YXtdZqbVs06I9TOxEttUSQfX+FFHlaMXNXws6KNsEoncj1eki+baB4KpXM91mQfRbkZiddg0QTg==; _gat_edap=1; cto_bundle=g8Vyx184cjdxZUNST0dKSFo3SktydDVDazRDayUyRiUyQktoOUlZViUyRnVPYkw1UHgzNlVtcnZYTUVpbEdzb21HNThzOWl6MFBXdFRubUxjbE9PQ2FpcThFT3kyamVEc1JzRnFWaXVKU0dZeWZCQSUyQktiYUQwRTJYUFYlMkZnUmJsQWRoekRoUFVzTjVwQkdyN3ZsUnJQWXdXMVMyTkhCWlVkS21lRUxLZ0hHN0RRdkMwYUJlS3pKVEw0aUJhdGNUMGxHZ0IwTmV1Wmpy; _clsk=1pq9d7f|1665291201017|8|0|i.clarity.ms/collect; _uetsid=ee5ccfb0478c11eda7a035f567c03cf9; _uetvid=ee5d0eb0478c11eda557c5c2168c9f62; ha-trip-prst=%7B%22petIncluded%22%3Afalse%2C%22arrival%22%3A%222022-11-14%22%2C%22departure%22%3A%222022-11-23%22%7D; ha-state-prst=%7B%22lbsKeywords%22%3A%22London%2C%20England%2C%20United%20Kingdom%22%2C%22lastSearchUrl%22%3A%22%2Fsearch%2Fkeywords%3Alondon-england-united-kingdom%2Farrival%3A2022-11-14%2Fdeparture%3A2022-11-23%2FminNightlyPrice%2F0%3FpetIncluded%3Dfalse%26filterByTotalPrice%3Dtrue%26ssr%3Dtrue%22%7D; bm_sv=651B601CE44BCF073DB37278617BE7F8~YAAQ9jLFF3IGJquDAQAAWU4XuxEgbQx7QFLBaEugtmdhSBbLr8OJdjXiSHxgTY3CvI200dpiy5DrtFeGBc8liVSKhCzNgJrRkC2i5YIcxw/5TMSvSRFYoRY68FOBYq5cOLLFSYx+J8LCtKmO5Ciw9F21KShJw3J7ns5MgxdRTj7EUI3LkROkVg+NaxpXfKkSQpwhFD1ClP3z9wsCTOBZ5mNVeeG2KpwsI55TYPv1J3i4jxNoLULRRppLKSg78dY=~1',
+        'referer': 'https://www.vrbo.com/search/keywords:london-england-united-kingdom/arrival:2022-11-14/departure:2022-11-23/minNightlyPrice/0?petIncluded=false&filterByTotalPrice=true&ssr=true',
+        'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+        'sec-ch-ua-mobile': '?1',
+        'sec-ch-ua-platform': '"Android"',
+        'sec-fetch-dest': 'script',
+        'sec-fetch-mode': 'no-cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Mobile Safari/537.36'
+    }
+});
+console.log(test)
+return test;
+}
+
+console.log(output())
